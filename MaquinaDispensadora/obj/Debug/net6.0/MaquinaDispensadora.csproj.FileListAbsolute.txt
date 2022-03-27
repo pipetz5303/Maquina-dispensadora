@@ -1,0 +1,14 @@
+D:\Documentos\Felipe 2022\Programacion\C#\MaquinaDispensadora\MaquinaDispensadora\bin\Debug\net6.0\MaquinaDispensadora.deps.json
+D:\Documentos\Felipe 2022\Programacion\C#\MaquinaDispensadora\MaquinaDispensadora\bin\Debug\net6.0\MaquinaDispensadora.runtimeconfig.json
+D:\Documentos\Felipe 2022\Programacion\C#\MaquinaDispensadora\MaquinaDispensadora\bin\Debug\net6.0\MaquinaDispensadora.dll
+D:\Documentos\Felipe 2022\Programacion\C#\MaquinaDispensadora\MaquinaDispensadora\bin\Debug\net6.0\MaquinaDispensadora.pdb
+D:\Documentos\Felipe 2022\Programacion\C#\MaquinaDispensadora\MaquinaDispensadora\obj\Debug\net6.0\MaquinaDispensadora.csproj.AssemblyReference.cache
+D:\Documentos\Felipe 2022\Programacion\C#\MaquinaDispensadora\MaquinaDispensadora\obj\Debug\net6.0\MaquinaDispensadora.GeneratedMSBuildEditorConfig.editorconfig
+D:\Documentos\Felipe 2022\Programacion\C#\MaquinaDispensadora\MaquinaDispensadora\obj\Debug\net6.0\MaquinaDispensadora.AssemblyInfoInputs.cache
+D:\Documentos\Felipe 2022\Programacion\C#\MaquinaDispensadora\MaquinaDispensadora\obj\Debug\net6.0\MaquinaDispensadora.AssemblyInfo.cs
+D:\Documentos\Felipe 2022\Programacion\C#\MaquinaDispensadora\MaquinaDispensadora\obj\Debug\net6.0\MaquinaDispensadora.csproj.CoreCompileInputs.cache
+D:\Documentos\Felipe 2022\Programacion\C#\MaquinaDispensadora\MaquinaDispensadora\obj\Debug\net6.0\MaquinaDispensadora.dll
+D:\Documentos\Felipe 2022\Programacion\C#\MaquinaDispensadora\MaquinaDispensadora\obj\Debug\net6.0\refint\MaquinaDispensadora.dll
+D:\Documentos\Felipe 2022\Programacion\C#\MaquinaDispensadora\MaquinaDispensadora\obj\Debug\net6.0\MaquinaDispensadora.pdb
+D:\Documentos\Felipe 2022\Programacion\C#\MaquinaDispensadora\MaquinaDispensadora\obj\Debug\net6.0\MaquinaDispensadora.genruntimeconfig.cache
+D:\Documentos\Felipe 2022\Programacion\C#\MaquinaDispensadora\MaquinaDispensadora\obj\Debug\net6.0\ref\MaquinaDispensadora.dll
