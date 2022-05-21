@@ -80,7 +80,9 @@ do
 
             break;
         case 3:
-
+            //recargar producto
+            //la persona selecciona que producto y cuantas cantidades va a agregar, al final se suman
+            RefillProduct(optionsBuilder);
 
 
             break;
@@ -102,6 +104,43 @@ do
 
 
 } while (repeat);
+
+
+static void RefillProduct(DbContextOptionsBuilder<MaquinaDispensadoraContext> optionsBuilder)
+{
+    Console.Clear();
+    Console.WriteLine("recargar producto\nSeleccione el producto a recrgar");
+    bool hasProducts = ShowProducts(optionsBuilder);
+    int productSelected = int.Parse(Console.ReadLine());
+        
+    
+
+    using (MaquinaDispensadoraContext context = new MaquinaDispensadoraContext(optionsBuilder.Options))
+    {
+        Producto productoEncontrado = context.Productos.Find(productSelected);
+
+        if (productoEncontrado != null)
+        {
+            Console.WriteLine("¿Cuántas unidades va a recargar?");
+            int cantidadRecarga = int.Parse(Console.ReadLine());   
+            productoEncontrado.UnidadesDisp += cantidadRecarga;
+            context.Entry(productoEncontrado).State = EntityState.Modified;
+            context.SaveChanges();
+            Console.WriteLine("Recargado");
+            
+
+
+        }
+        else
+        {
+            Console.WriteLine("Producto no existe");
+        }
+    }
+
+}
+
+
+
 
 //crea la conexion para la consulta, trae los productos listados
 //retorna true o false para manejo de info y los elementos se cargan por consola
