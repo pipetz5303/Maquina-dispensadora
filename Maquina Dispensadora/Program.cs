@@ -1,5 +1,6 @@
 ﻿using BD;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 
 
@@ -32,7 +33,21 @@ do
         case 1:
             //Seleccionar productos
             //muestra productos agregados
-            ShowProducts(optionsBuilder);
+            bool hasProducts = ShowProducts(optionsBuilder);
+            
+            if (hasProducts)
+            {
+                Console.WriteLine("Seleccione un producto");
+                int productSelected = int.Parse(Console.ReadLine());
+                selectProduct(productSelected, optionsBuilder);
+            }
+            //pendiente poder seleccionar producto solo pero se necesita el video de editar para solo hacerlo con uno
+
+
+
+            
+
+
 
             break;
         case 2:
@@ -53,12 +68,20 @@ do
             Console.WriteLine("Ingrese las unidades a agregar");
             int productTotal = int.Parse(Console.ReadLine());
 
-            //Producto product = new Producto(brandSelected,productName,productPrice,productTotal);
+            Producto product = new Producto()
+            {
+                Nombre = productName,
+                Marca = brandSelected,
+                Precio = productPrice,
+                UnidadesDisp = productTotal
+            };
 
-            //AddProduct(product);//AddProduct();
+            AddProduct(optionsBuilder, product);
 
             break;
         case 3:
+
+
 
             break;
         case 4:
@@ -80,14 +103,18 @@ do
 
 } while (repeat);
 
-//crea la conexion para la consulta, trae 
-static void ShowProducts(DbContextOptionsBuilder<MaquinaDispensadoraContext> optionsBuilder)
+//crea la conexion para la consulta, trae los productos listados
+//retorna true o false para manejo de info y los elementos se cargan por consola
+static bool ShowProducts(DbContextOptionsBuilder<MaquinaDispensadoraContext> optionsBuilder)
 {
 
     using (MaquinaDispensadoraContext context = new MaquinaDispensadoraContext(optionsBuilder.Options))
     {
-        var products = context.Productos.ToList();
+        
+        List<Producto> products = context.Productos.ToList();
+        
         Console.WriteLine("Productos disponibles");
+
         //Por si la lista esta vacia
         if(products.Count >0)
         {
@@ -95,16 +122,55 @@ static void ShowProducts(DbContextOptionsBuilder<MaquinaDispensadoraContext> opt
             {
                 Console.WriteLine($"{product.IdProducto}: {product.Nombre} ${product.Precio} Unidades: {product.UnidadesDisp}");
             }
-            
+
+            return true;
+               
         }
         else
         {
             Console.WriteLine("Aun no hay produtos agregados");
+            return false;
         }
        
 
     }
 }
+
+
+static void selectProduct(int numProductSelected, DbContextOptionsBuilder<MaquinaDispensadoraContext> optionsBuilder)
+{
+    using (MaquinaDispensadoraContext context = new MaquinaDispensadoraContext(optionsBuilder.Options))
+    {
+        Producto productoEncontrado = context.Productos.Find(numProductSelected);
+
+        if (productoEncontrado != null )
+        {
+            if (productoEncontrado.UnidadesDisp != 0)
+            {
+                Console.WriteLine("Preparando...");
+                productoEncontrado.UnidadesDisp -= 1;
+                context.Entry(productoEncontrado).State = EntityState.Modified;
+                context.SaveChanges();
+                Console.WriteLine("Entregado");
+            }
+            else
+            {
+                Console.WriteLine("Producto no disponible");
+            }
+            
+
+        } else
+        {
+            Console.WriteLine("Producto no existe");
+        }
+    }   
+}
+
+
+
+
+
+
 
 
 //Muestra en una lista todas las marcas 
@@ -123,9 +189,13 @@ static void ShowBrands(DbContextOptionsBuilder<MaquinaDispensadoraContext> optio
 }
 
 
-static void AddProduct(Producto product)
+static void AddProduct(DbContextOptionsBuilder<MaquinaDispensadoraContext> optionsBuilder, Producto product)
 {
-
+    using (var context = new MaquinaDispensadoraContext(optionsBuilder.Options))
+    {
+        context.Add(product);
+        context.SaveChanges();  
+    }
 };
 
 

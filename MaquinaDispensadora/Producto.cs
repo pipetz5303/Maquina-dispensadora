@@ -5,6 +5,9 @@ namespace BD
 {
     public partial class Producto
     {
+        
+
+
         public int IdProducto { get; set; }
         public string Nombre { get; set; } = null!;
         public int Marca { get; set; }
