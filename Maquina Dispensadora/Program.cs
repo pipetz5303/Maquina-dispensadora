@@ -83,11 +83,11 @@ do
             //recargar producto
             //la persona selecciona que producto y cuantas cantidades va a agregar, al final se suman
             RefillProduct(optionsBuilder);
-
-
             break;
         case 4:
-
+            //remover producto
+            //la persona seleciona el producto y lo borra de la maquina dispensadora
+            RemoveProduct(optionsBuilder);
             break;
         case 5:
             Console.WriteLine("Saliendo.");
@@ -106,10 +106,31 @@ do
 } while (repeat);
 
 
+static void RemoveProduct (DbContextOptionsBuilder<MaquinaDispensadoraContext> optionsBuilder)
+{
+    Console.Clear();
+    Console.WriteLine("REMOVER PRODUCTO\nSeleccione el producto a remover");
+    bool find = ShowProducts(optionsBuilder);
+    int productSelected = int.Parse(Console.ReadLine());
+
+    using (var context = new MaquinaDispensadoraContext(optionsBuilder.Options))
+    {
+        Producto productoEncontrado = context.Productos.Find(productSelected);
+        context.Remove(productoEncontrado);
+        context.SaveChanges();
+        Console.WriteLine("Producto retirado");
+
+
+    }
+}
+
+
+
+
 static void RefillProduct(DbContextOptionsBuilder<MaquinaDispensadoraContext> optionsBuilder)
 {
     Console.Clear();
-    Console.WriteLine("recargar producto\nSeleccione el producto a recrgar");
+    Console.WriteLine("RECARGAR PRODUCTO\nSeleccione el producto a recrgar");
     bool hasProducts = ShowProducts(optionsBuilder);
     int productSelected = int.Parse(Console.ReadLine());
         
@@ -150,7 +171,8 @@ static bool ShowProducts(DbContextOptionsBuilder<MaquinaDispensadoraContext> opt
     using (MaquinaDispensadoraContext context = new MaquinaDispensadoraContext(optionsBuilder.Options))
     {
         
-        List<Producto> products = context.Productos.ToList();
+        List<Producto> products = (from p in context.Productos
+                                   select p).Include(p=> p.MarcaNavigation).ToList();
         
         Console.WriteLine("Productos disponibles");
 
@@ -159,7 +181,8 @@ static bool ShowProducts(DbContextOptionsBuilder<MaquinaDispensadoraContext> opt
         {
             foreach (var product in products)
             {
-                Console.WriteLine($"{product.IdProducto}: {product.Nombre} ${product.Precio} Unidades: {product.UnidadesDisp}");
+                
+                Console.WriteLine($"{product.IdProducto}: {product.Nombre} {product.MarcaNavigation.Nombre} ${product.Precio} Unidades: {product.UnidadesDisp}");
             }
 
             return true;
