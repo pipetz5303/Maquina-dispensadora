@@ -19,3 +19,4 @@ Cargan los productos disponibles y la persona selecciona uno, ingresa las cantid
 Cargan los productos y la persona elimina el producto de la base de datos.
 
 Si tienes mejoras o recomendaciones, son bienvenidas, estoy aprendiendo y entre más, mejor.
+Pideme la DB o puedes crearla y hacerle la conexion tú mismo.
